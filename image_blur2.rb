@@ -23,14 +23,20 @@ class Image
           ones.each do |found_row_number, found_col_number|
 
             if row_number == found_row_number && col_number == found_col_number
-              @picture[row_number -1][col_number] = 1 unless row_number == 0 #up
-              @picture[row_number +1][col_number] = 1 unless row_number >= 3 #down
-              @picture[row_number][col_number -1] = 1 unless col_number == 0 #left
-              @picture[row_number][col_number +1] = 1 unless col_number >= 3 #right
+              @picture[row_number -1][col_number] = 1 unless row_number <= 0 #up
+              @picture[row_number +1][col_number] = 1 unless row_number >= @picture.count-1 #down
+              @picture[row_number][col_number -1] = 1 unless col_number <= 0 #left
+              @picture[row_number][col_number +1] = 1 unless col_number >= @picture[row_number+1].count-1
             end
           end
         end
       end
+  end
+
+  def blur_distance(md)
+    md.each do |i|
+      blur!
+    end
   end
 
   def output_image
